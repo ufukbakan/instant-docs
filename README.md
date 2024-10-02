@@ -1,6 +1,7 @@
-# Instant Docs 📃
+<center><img src='./assets/icon.svg' height="100"/>
 
 Create docs faster than light.
+</center>
 
 
 Prepare your content only with markdown files and let the tool do all the work for you.

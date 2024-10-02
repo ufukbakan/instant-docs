@@ -1,0 +1,46 @@
+{
+  "name": "instant-docs",
+  "version": "1.0.0",
+  "description": "Create docs faster than light",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "doc",
+    "docs",
+    "documentation",
+    "tool",
+    "create",
+    "creator",
+    "generate",
+    "generator",
+    "content",
+    "manager",
+    "backend",
+    "frontend",
+    "full",
+    "fast",
+    "faster",
+    "fastest",
+    "quick",
+    "easy"
+  ],
+  "author": {
+    "name": "Ufuk Bakan",
+    "email": "println.ufukbakan@gmail.com",
+    "url": "https://linkedin.com/in/ufuk-bakan/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "express": "^4.21.0",
+    "showdown": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4"
+  }
+}

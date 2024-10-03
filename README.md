@@ -1,12 +1,12 @@
-<center><img src='./assets/logo/logo.svg' height="100"/>
+<h2 align="center"><img src='./assets/logo/logo.svg' height="150"/>
 
 Create docs faster than light.
-</center>
-
+</h2>
 
 Prepare your content only with markdown files and let the tool do all the work for you.
 
 ## Features
+
 - **Markdown Support**: Write documentation in Markdown format.
 - **Automatic Table of Contents Generation**: Automatically generate a table of contents based on headings in your markdown files.
 - **Search Functionality**: Built-in search support.
@@ -20,4 +20,3 @@ Prepare your content only with markdown files and let the tool do all the work f
 - **Ease of Use**: Simple setup process with minimal configuration required.
 - **Scalability**: Scalable architecture that allows for easy expansion as your documentation grows.
 - **SEO Friendly**: Optimized for search engines, making it easier for users to find your docs.
-

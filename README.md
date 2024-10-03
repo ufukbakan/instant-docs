@@ -1,4 +1,4 @@
-<center><img src='./assets/icon.svg' height="100"/>
+<center><img src='./assets/logo/logo.svg' height="100"/>
 
 Create docs faster than light.
 </center>

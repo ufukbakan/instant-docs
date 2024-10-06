@@ -1,7 +1,7 @@
 // @ts-check
 import express from "express";
 import { readdirSync, statSync } from "fs";
-import { join, relative, resolve } from "path";
+import { join, relative, resolve, sep } from "path";
 import generatePage from "./src/generate-page.js";
 import getHtmlContent from "./src/get-html-content.js";
 import { metadata } from "./helpers/index.js";
@@ -27,13 +27,13 @@ async function readDirAndSetRoutes({parent = '/', dir = './pages/on-menu'} = {})
       pages.push(...subPages);
     } else {
       if(element.startsWith('content') && !pages.some(page => page.url === absolute)){
-        const url = parent;
+        const url = parent.split(sep).join('/');
         const metas = await getMetadatas(dir);
         pages.push({ url, metas });
         app.get(url, (_req, res) => {
-          const content = getHtmlContent(dir, res.locals.detectedLanguage);
-          const meta = metas.find(meta => meta.lang === res.locals.detectedLanguage) || metas[0];
-          res.contentType('html').send(generatePage({ content, meta, lang: res.locals.detectedLanguage }));
+          const { content, lang } = getHtmlContent(dir, res.locals.detectedLanguage);
+          const meta = metas.find(meta => meta.lang === lang) || metas[0];
+          res.contentType('html').send(generatePage({ content, meta, lang }));
         });
       }
     }
@@ -46,19 +46,16 @@ async function readDirAndSetRoutes({parent = '/', dir = './pages/on-menu'} = {})
 export const onMenuPages = await readDirAndSetRoutes();
 export const offMenuPages = await readDirAndSetRoutes({dir: './pages/off-menu'});
 
+console.log({
+  onMenuPages,
+  offMenuPages
+})
+
 async function getMetadatas(dir = '/'){
   const files = readdirSync(dir);
   const metaFiles = files.filter(fileName => fileName.startsWith('meta') && fileName.endsWith('.js'));
   if(metaFiles.length === 0){
-    return [
-      metadata({
-      lang: 'en',
-      title: 'Undefined',
-      description: 'undefined',
-      image: '/',
-      keywords: []
-    })
-  ];
+    return [metadata()];
   }
   const relativeDirs = metaFiles.map(metaFile => './'.concat(relative(import.meta.dirname, resolve(dir, metaFile))));
   const metaModules = await Promise.all(relativeDirs.map(async metaDir => await import(metaDir)));

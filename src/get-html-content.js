@@ -8,6 +8,13 @@ converter.setOption('ghCompatibleHeaderId', true);
 
 export default function getHtmlContent(dir, lang){
     const files = readdirSync(dir);
-    const contentFile = files.find(fileName => fileName === `content_${lang}.md`) || 'content.md';
-    return converter.makeHtml(readFileSync(join(dir, contentFile), config.ENCODING));
+    let contentFile = files.find(fileName => fileName === `content_${lang}.md`);
+    if(!contentFile){
+        lang = config.DEFAULT_LANG;
+        contentFile = 'content.md';
+    }
+    return {
+        content: converter.makeHtml(readFileSync(join(dir, contentFile), config.ENCODING)),
+        lang
+    };
 }

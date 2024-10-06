@@ -1,17 +1,44 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='%encoding%'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<html lang="%lang%">
+  <head>
+    <meta charset="%encoding%" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="%meta_description%" />
     <title>%page_title%</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-</head>
-<body>
-    <nav>%nav%</nav>
-    <header>%header%</header>
-    <section id="table-of-contents">%table_of_contents%</section>
-    <main>%content%</main>
-    <footer>%footer%</footer>
-</body>
+    <link rel="stylesheet" href="/css/pure-min.css" />
+    <link rel="stylesheet" href="/css/sidebar.css" />
+  </head>
+  <body>
+    <div id="layout">
+      <a href="#menu" id="menuLink" class="menu-link">
+        <span></span>
+      </a>
+
+      <div id="menu">
+        <nav class="pure-menu">
+          <a class="pure-menu-heading" href="#company">Company</a>
+
+          <ul class="pure-menu-list">
+            %nav%
+          </ul>
+        </nav>
+      </div>
+
+      <main id="main">
+        <header class="header">
+          %header%
+        </header>
+
+        <div class="content">
+          <section id="table-of-contents">%table_of_contents%</section>
+          %content%
+        </div>
+      </main>
+
+      <footer>%footer%</footer>
+    </div>
+
+    <script src="/js/ui.js"></script>
+  </body>
 </html>

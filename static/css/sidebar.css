@@ -1,6 +1,18 @@
 body {
     color: #777;
 }
+a{
+    color: inherit;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #eee;
+        background-color: #242424;
+    }
+    h1,h2,h3,h4,h5,h6,.header,.content-subhead{
+        color: #eee
+    }
+}
 
 .pure-img-responsive {
     max-width: 100%;
@@ -29,12 +41,7 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.active #menu {
-        left: 150px;
-        width: 150px;
-    }
-
-    #layout.active .menu-link {
-        left: 150px;
+        transform: translateX(0);
     }
 /*
 The content `<div>` is where all your content goes.
@@ -80,15 +87,15 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 150px;
+    transform: translateX(-100%);
+    max-width: 350px;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
     background: #191818;
-    overflow-y: auto;
+    overflow: visible;
 }
     /*
     All anchors inside the menu should be styled like this.
@@ -96,7 +103,11 @@ appears on the left side of the page.
     #menu a {
         color: #999;
         border: none;
-        padding: 0.6em 0 0.6em 0.6em;
+        padding: 0.6em 1em 0.6em 0.6em;
+    }
+
+    #menu nav{
+        overflow-y: auto;
     }
 
     /*
@@ -157,12 +168,11 @@ how it works:
 `.menu-link` represents the responsive menu toggle that shows/hides on
 small screens.
 */
-.menu-link {
-    position: fixed;
+a#menuLink {
+    position: absolute;
     display: block; /* show this only on small screens */
     top: 0;
-    left: 0; /* "#menu width" */
-    background: #000;
+    left: 100%; /* "#menu width" */
     background: rgba(0,0,0,0.7);
     font-size: 10px; /* change this value to increase/decrease button size */
     z-index: 10;
@@ -216,21 +226,14 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: 350px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        transform: translateX(0);
     }
-
-    .menu-link {
-        position: fixed;
-        left: 150px;
-        display: none;
-    }
-
-    #layout.active .menu-link {
-        left: 150px;
+    #menuLink{
+        display: none !important;
     }
 }
 

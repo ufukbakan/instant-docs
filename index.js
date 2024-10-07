@@ -33,7 +33,7 @@ async function readDirAndSetRoutes({parent = '/', dir = './pages/on-menu'} = {})
         app.get(url, (_req, res) => {
           const { content, lang } = getHtmlContent(dir, res.locals.detectedLanguage);
           const meta = metas.find(meta => meta.lang === lang) || metas[0];
-          res.contentType('html').send(generatePage({ content, meta, lang }));
+          res.contentType('html').send(generatePage({ dir, content, meta, lang }));
         });
       }
     }

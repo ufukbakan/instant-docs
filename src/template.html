@@ -11,32 +11,27 @@
   </head>
   <body>
     <div id="layout">
-      <a href="#menu" id="menuLink" class="menu-link">
-        <span></span>
-      </a>
-
       <div id="menu">
         <nav class="pure-menu">
-          <a class="pure-menu-heading" href="#company">Company</a>
+          <a class="pure-menu-heading" href="/">Company</a>
 
           <ul class="pure-menu-list">
             %nav%
           </ul>
         </nav>
+        <a href="#menu" id="menuLink" class="menu-link">
+          <span></span>
+        </a>
       </div>
 
       <main id="main">
-        <header class="header">
-          %header%
-        </header>
-
+        %header%
         <div class="content">
           <section id="table-of-contents">%table_of_contents%</section>
           %content%
         </div>
       </main>
-
-      <footer>%footer%</footer>
+      %footer%
     </div>
 
     <script src="/js/ui.js"></script>

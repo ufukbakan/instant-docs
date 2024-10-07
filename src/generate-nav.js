@@ -5,7 +5,7 @@ export default function generateNavigation(){
     let menu = '';
 
     pages
-      .filter(page => page.url.startsWith(parentUrl)) // Get child pages
+      .filter(page => page.url.startsWith(parentUrl) && page.url.replace(parentUrl, '').split('/').length === 2 ) // Get child pages
       .forEach(page => {
         const title = page.url.split('/').pop().replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); // Create title from URL
         let li = `<li class="pure-menu-item"><a class="pure-menu-link" href="${page.url}">${title}</a>`;

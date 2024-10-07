@@ -1,4 +1,7 @@
 import config from "../config.js";
+import showdown from "showdown";
+const converter = new showdown.Converter();
+converter.setOption('ghCompatibleHeaderId', true);
 
 export function metadata({
     title = "",
@@ -10,4 +13,8 @@ export function metadata({
     generateTOC = true,
   } = {}) {
   return { title, description, keywords, image, icon, lang, generateTOC };
+}
+
+export function markdownToHtml(text){
+  return converter.makeHtml(text);
 }

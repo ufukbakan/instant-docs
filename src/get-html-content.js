@@ -1,10 +1,7 @@
 import { readdirSync, readFileSync } from "fs";
 import { join } from "path";
-import showdown from "showdown";
 import config from "../config.js";
-
-const converter = new showdown.Converter();
-converter.setOption('ghCompatibleHeaderId', true);
+import { markdownToHtml } from "../helpers/index.js";
 
 export default function getHtmlContent(dir, lang){
     const files = readdirSync(dir);
@@ -14,7 +11,7 @@ export default function getHtmlContent(dir, lang){
         contentFile = 'content.md';
     }
     return {
-        content: converter.makeHtml(readFileSync(join(dir, contentFile), config.ENCODING)),
+        content: markdownToHtml(readFileSync(join(dir, contentFile), config.ENCODING)),
         lang
     };
 }

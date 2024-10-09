@@ -8,6 +8,7 @@ import { metadata } from "./helpers/index.js";
 import detectLanguage from "./middlewares/detect-language.js";
 import config from "./config.js";
 import { prepareSearchIndexes } from "./src/get-full-text-search-index.js";
+import { buildFePlugins } from "./src/build-fe-plugins.js";
 
 export const app = express();
 
@@ -71,6 +72,9 @@ async function getMetadatas(dir){
   }
   return result;
 }
+
+console.log('Building frontend plugins');
+buildFePlugins();
 
 app.listen(PORT, () => {
   console.log('Preparing search index');

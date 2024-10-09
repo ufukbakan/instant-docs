@@ -44,5 +44,5 @@ export async function prepareSearchIndexes(lang){
     const indexContent = await Promise.all(pagesToSearch.map(page => getFullTextSearchIndex(page, lang)));
     const indexFile = join(packageDirectorySync(), `static/search_index_${lang}.json`);
     writeFileSync(indexFile, JSON.stringify(indexContent), { encoding: config.ENCODING });
-    console.log('Search index is ready');
+    console.log(`Search index ${lang} is ready`);
 }

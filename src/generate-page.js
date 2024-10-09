@@ -6,6 +6,7 @@ import config from "../config.js";
 import getHeader from "./get-header.js";
 import getFooter from "./get-footer.js";
 import getLogo from "./get-logo.js";
+import dictionary from "../dictionary.js";
 
 export default function generatePage({ dir, content = '', meta = {}, lang = config.DEFAULT_LANG } = {}){
     const templateHtml = readFileSync(resolve(import.meta.dirname, 'template.html'), { encoding: config.ENCODING });
@@ -13,6 +14,7 @@ export default function generatePage({ dir, content = '', meta = {}, lang = conf
     const logo = getLogo(dir, lang);
     const header = getHeader(dir, lang);
     const footer = getFooter(dir, lang);
+    const searchText = dictionary.search[lang];
     const toc = meta.generateTOC ? generateTableOfContents(htmlWithContentOnly, lang) : "";
     const html = htmlWithContentOnly
         .replaceAll('%logo%', logo)
@@ -21,6 +23,7 @@ export default function generatePage({ dir, content = '', meta = {}, lang = conf
         .replaceAll('%encoding%', config.ENCODING)
         .replaceAll('%page_title%', meta.title)
         .replaceAll('%table_of_contents%', toc)
+        .replaceAll('%search_text%', searchText)
         .replaceAll('%nav%', generateNavigation(lang))
         .replaceAll('%footer%', footer);
     return html;

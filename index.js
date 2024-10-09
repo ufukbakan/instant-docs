@@ -1,12 +1,13 @@
 // @ts-check
 import express from "express";
 import { readdirSync, statSync } from "fs";
-import { join, relative, resolve, sep } from "path";
+import { join, relative, resolve, sep, basename, extname } from "path";
 import generatePage from "./src/generate-page.js";
 import getHtmlContent from "./src/get-html-content.js";
 import { metadata } from "./helpers/index.js";
 import detectLanguage from "./middlewares/detect-language.js";
 import config from "./config.js";
+import { prepareSearchIndexes } from "./src/get-full-text-search-index.js";
 
 export const app = express();
 
@@ -20,7 +21,7 @@ app.use('/', express.static('./static'));
 async function readDirAndSetRoutes({parent = '/', dir = './pages/on-menu'} = {}){
   const dirs = readdirSync(dir);
   const promises = dirs.map(async (element) => {
-    /** @type {Array<{url: string, metas: Array<Object>}>} */ const pages = [];
+    /** @type {Array<{url: string, metas: Record<string, object>}>} */ const pages = [];
     const absolute = resolve(dir, element);
     if(statSync(absolute).isDirectory()){
       const subPages = await readDirAndSetRoutes({ parent: join(parent, element), dir: join(dir, element)});
@@ -32,7 +33,7 @@ async function readDirAndSetRoutes({parent = '/', dir = './pages/on-menu'} = {})
         pages.push({ url, metas });
         app.get(url, (_req, res) => {
           const { content, lang } = getHtmlContent(dir, res.locals.detectedLanguage);
-          const meta = metas.find(meta => meta.lang === lang) || metas[0];
+          const meta = metas[lang] ?? metas[config.DEFAULT_LANG];
           res.contentType('html').send(generatePage({ dir, content, meta, lang }));
         });
       }
@@ -51,15 +52,29 @@ console.log({
   offMenuPages
 })
 
-async function getMetadatas(dir = '/'){
+async function getMetadatas(dir){
   const files = readdirSync(dir);
   const metaFiles = files.filter(fileName => fileName.startsWith('meta') && fileName.endsWith('.js'));
   if(metaFiles.length === 0){
-    return [metadata()];
+    return {
+      [config.DEFAULT_LANG]: metadata()
+    };
   }
-  const relativeDirs = metaFiles.map(metaFile => './'.concat(relative(import.meta.dirname, resolve(dir, metaFile))));
-  const metaModules = await Promise.all(relativeDirs.map(async metaDir => await import(metaDir)));
-  return metaModules.map(m => m.default);
+  const result = {};
+  for (const file of metaFiles){
+    const fileName = basename(file, extname(file));
+    const splittedName = fileName.split('_');
+    const fileLang = splittedName.length > 1 ? splittedName.at(-1) : config.DEFAULT_LANG;
+    const relativeDir = './'.concat(relative(import.meta.dirname, resolve(dir, file)));  
+    const metaModule = await import(relativeDir);
+    result[fileLang] = metaModule.default;
+  }
+  return result;
 }
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.listen(PORT, () => {
+  console.log('Preparing search index');
+  const supportedLanguages = config.CONTENT_LANGUAGES.split(',');
+  supportedLanguages.forEach(prepareSearchIndexes);
+  console.log(`Listening on ${PORT}`);
+});

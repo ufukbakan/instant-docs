@@ -1,13 +1,22 @@
+import config from "../config.js";
 import { onMenuPages } from "../index.js";
 
-export default function generateNavigation(){
+export default function generateNavigation(lang) {
+  /**
+   * @param {Array<{
+   * url: string;
+   * metas: Record<string, object>;
+   * }>} pages 
+   * @param {string} parentUrl 
+   */
   function buildMenu(pages, parentUrl = '') {
     let menu = '';
 
     pages
-      .filter(page => page.url.startsWith(parentUrl) && page.url.replace(parentUrl, '').split('/').length === 2 ) // Get child pages
+      .filter(page => page.url.startsWith(parentUrl) && page.url.replace(parentUrl, '').split('/').length === 2) // Get child pages
       .forEach(page => {
-        const title = page.url.split('/').pop().replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); // Create title from URL
+        const meta = page.metas[lang] ?? page.metas[config.DEFAULT_LANG];
+        const title = meta.title || page.url.split('/').pop().replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); // Create title from URL
         let li = `<li class="pure-menu-item"><a class="pure-menu-link" href="${page.url}">${title}</a>`;
 
         // Find if there are subpages and recursively build the submenu

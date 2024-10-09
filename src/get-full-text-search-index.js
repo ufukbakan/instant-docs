@@ -22,9 +22,9 @@ async function getFullTextSearchIndex(page, lang) {
         }
     });
     const $ = load(html);
-    $('nav, header, footer, aside, script, style, #table-of-contents').remove();
+    $('nav, header, footer, aside, script, style, #table-of-contents, form').remove();
     const title = $('title').text().trim();
-    const textContent = title + ' ' + $('body').text();
+    const textContent = title + ' ' + $('.content').text();
     const cleanText = textContent
         .replace(/\n|\t/g, ' ')
         .replace(/\s/g, ' ')

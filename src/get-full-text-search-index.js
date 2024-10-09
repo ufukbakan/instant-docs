@@ -16,7 +16,7 @@ import { offMenuPages, onMenuPages } from '../index.js';
  */
 async function getFullTextSearchIndex(page, lang) {
     const { data: html } = await axios.get(page.url, { 
-        baseURL: `http://localhost:${config.PORT}`,
+        baseURL: `${config.PROTOCOL}://localhost:${config.PORT}`,
         headers: {
             'accept-language': lang
         }
@@ -29,8 +29,7 @@ async function getFullTextSearchIndex(page, lang) {
         .replace(/\n|\t/g, ' ')
         .replace(/\s/g, ' ')
         .replace(/\s{2,}/g, ' ')
-        .trim()
-        .toLowerCase();
+        .trim();
     return { title, cleanText, url: page.url };
 }
 

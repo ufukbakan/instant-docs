@@ -14,7 +14,7 @@
     <div id="layout">
       <div id="menu">
         <nav class="pure-menu">
-          <a class="pure-menu-heading" href="/">%logo%</a>
+          %logo%
 
           <ul class="pure-menu-list">
             %nav%
@@ -28,6 +28,17 @@
       <main id="main">
         %header%
         <div class="content">
+          <form class="pure-form">
+            <input id="search-bar" type="text" placeholder="%search_text%" />
+            <div id="search-result-container" class="hide">
+              <ol>
+                <li><div><h4>title</h4><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dolorem quis quas consectetur! Porro sunt assumenda laboriosam consequuntur nulla unde dolores rem rerum soluta, quisquam vitae sed illum adipisci voluptates.</p></div></li>
+                <li><div><h4>title</h4><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dolorem quis quas consectetur! Porro sunt assumenda laboriosam consequuntur nulla unde dolores rem rerum soluta, quisquam vitae sed illum adipisci voluptates.</p></div></li>
+                <li><div><h4>title</h4><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dolorem quis quas consectetur! Porro sunt assumenda laboriosam consequuntur nulla unde dolores rem rerum soluta, quisquam vitae sed illum adipisci voluptates.</p></div></li>
+                <li><div><h4>title</h4><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dolorem quis quas consectetur! Porro sunt assumenda laboriosam consequuntur nulla unde dolores rem rerum soluta, quisquam vitae sed illum adipisci voluptates.</p></div></li>
+              </ol>
+            </div>
+          </form>
           <section id="table-of-contents">%table_of_contents%</section>
           %content%
         </div>

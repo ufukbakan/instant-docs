@@ -49,21 +49,6 @@
         }
     }
     document.addEventListener('click', handleEvent);
-
-    const debounceTimers = {};
-    const searchContext = {
-        input: '',
-        results: [],
-    }
-    function debounceByKey(key, ms = 750){
-        return (f) => (...args) => {
-            clearTimeout(debounceTimers[key]);
-            debounceTimers[key] = setTimeout(() => f(...args), ms);
-        }
-    }
-
-    window.lang = document.getElementsByTagName("html")[0].lang;
-    const cb = debounceByKey("searchInput")(e => console.log(e.target.value));
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("focus", () => {
         getElements().searchResultContainer.classList.remove("hide");
@@ -74,7 +59,4 @@
         }
     });
 
-    document.getElementById("search-bar").addEventListener("input", (e) => {
-        cb(e);
-    });
 }(this, this.document));

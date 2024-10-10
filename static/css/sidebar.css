@@ -1,16 +1,21 @@
+:root{
+    --color: #777;
+    --bg-color: #eee;
+}
 body {
-    color: #777;
+    color: var(--color);
+    background-color: var(--bg-color);
+}
+h1,h2,h3,h4,h5,h6,.header,.content-subhead{
+    color: var(--color)
 }
 a{
     color: inherit;
 }
 @media (prefers-color-scheme: dark) {
-    body {
-        color: #eee;
-        background-color: #242424;
-    }
-    h1,h2,h3,h4,h5,h6,.header,.content-subhead{
-        color: #eee
+    :root{
+        --color: #eee;
+        --bg-color: #242424;
     }
 }
 
@@ -251,15 +256,58 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 }
 
 #search-bar{
+    color: var(--color);
+    background-color: var(--bg-color);
+    box-shadow: none;
     width: 100%;
 }
 #search-result-container{
-    transition: opacity .2s, max-height .2s;
+    position: relative;
+    border: 1px solid currentColor;
+    box-shadow: 0 0 2px currentColor;
+    border-radius: 4px;
+    margin-top: 1rem;
+    box-sizing: border-box;
+    transition: all .2s;
     max-height: 350px;
-    overflow-y: auto;
 }
 #search-result-container.hide{
+    grid-template-rows: 0fr;
     opacity: 0;
-    pointer-events: none;
     max-height: 0;
+}
+#search-result-container a {
+    text-decoration: none;
+}
+#search-result-container h1,h2,h3,h4,h5,h6 {
+    text-decoration: underline;
+}
+.search-result-list{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    max-height: inherit;
+    overflow-y: auto;
+    grid-template-rows: 1fr;
+    list-style: none;
+    transition: all .2s;
+}
+.search-result-list>*,
+#search-result-container>:not(ol,ul){
+    padding: 1rem 2rem;
+}
+.search-result-list li:nth-child(even){
+    background-color: var(--color);
+}
+.search-result-list li:nth-child(even) h4,
+.search-result-list li:nth-child(even) p{
+    color: var(--bg-color) !important;
+}
+.search-result-list li h4,
+.search-result-list li p{
+    margin: 0;
+}
+
+#search-result-container:not(:has(*)){
+    opacity: 0;
 }

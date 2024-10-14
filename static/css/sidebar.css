@@ -272,7 +272,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     max-height: 350px;
 }
 #search-result-container.hide{
-    grid-template-rows: 0fr;
     opacity: 0;
     max-height: 0;
 }
@@ -310,4 +309,56 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 
 #search-result-container:not(:has(*)){
     opacity: 0;
+}
+
+.expandable{
+    list-style: none;
+}
+
+li>button[aria-controls]{
+    display: inline;
+}
+
+li>ol,li>ul{
+    max-height: 0;
+    /* transition: .3s; */
+    overflow: hidden;
+}
+li.expanded>ol,li.expanded>ul{
+    max-height: inherit;
+    overflow: auto;
+}
+
+.expand-button{
+    display: none;
+}
+.chevron{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    margin-inline: 1rem;
+    user-select: none;
+}
+
+.pure-menu-item label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pure-menu-item label:hover{
+    cursor: pointer;
+    background: #333;
+}
+.expanded>.flex-menu-item .chevron{
+    transform: rotate(90deg);
+}
+
+.flex-menu-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+.grow{
+    flex-grow: 1;
 }

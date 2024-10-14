@@ -17,14 +17,22 @@ export default function generateNavigation(lang) {
       .forEach(page => {
         const meta = page.metas[lang] ?? page.metas[config.DEFAULT_LANG];
         const title = meta.title || page.url.split('/').pop().replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); // Create title from URL
-        let li = `<li class="pure-menu-item"><a class="pure-menu-link" href="${page.url}">${title}</a>`;
+        const subPages = onMenuPages.filter(subPage => subPage.url.startsWith(`${page.url}/`));
+        const hasSubpages = subPages.length > 0;
+        let li = '';
 
         // Find if there are subpages and recursively build the submenu
-        const subPages = onMenuPages.filter(subPage => subPage.url.startsWith(`${page.url}/`));
-        if (subPages.length > 0) {
+        if (hasSubpages) {
+          li += '<li class="pure-menu-item" role="group">';
+          li += `<div class="flex-menu-item" role="group"><a class="pure-menu-link grow" href="${page.url}">${title}</a>`;
+          li += '<label><input type="checkbox" class="expand-button"/><div class="chevron">›</div></label>';
+          li += '</div>'
           li += '<ul>'
           li += buildMenu(subPages, page.url); // Add sub-menu inside the <li> if there are subpages
-          li += "</ul>"
+          li += '</ul>'
+        } else {
+          li += `<li class="pure-menu-item">`;
+          li += `<a class="pure-menu-link" href="${page.url}">${title}</a>`;
         }
 
         li += '</li>';

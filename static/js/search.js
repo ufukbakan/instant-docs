@@ -1,4 +1,4 @@
-import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs';
+import Fuse from './fuse_7_0_0.js';
 
 const searchContext = {
   loading: false,

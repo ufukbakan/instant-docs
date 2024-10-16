@@ -25,7 +25,7 @@ export default function generateNavigation(lang) {
         if (hasSubpages) {
           li += '<li class="pure-menu-item" role="group">';
           li += `<div class="flex-menu-item" role="group"><a class="pure-menu-link grow" href="${page.url}">${title}</a>`;
-          li += '<label><input type="checkbox" class="expand-button"/><div class="chevron">›</div></label>';
+          li += '<label><input type="checkbox" class="expand-button"/><div class="chevron"></div></label>';
           li += '</div>'
           li += '<ul>'
           li += buildMenu(subPages, page.url); // Add sub-menu inside the <li> if there are subpages

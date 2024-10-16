@@ -335,8 +335,19 @@ li.expanded>ol,li.expanded>ul{
 .chevron{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.5rem;
+    color: red;
+    width: 1rem;
+    height: 40%;
+    opacity: .6;
+    background-image: url('/assets/chevron.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
     margin-inline: 1rem;
     user-select: none;
+}
+label:hover .chevron{
+    opacity: .9;
 }
 
 .pure-menu-item label{

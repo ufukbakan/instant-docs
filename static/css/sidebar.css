@@ -53,6 +53,8 @@ The content `<div>` is where all your content goes.
 */
 .content {
     margin: 0 auto;
+    box-sizing: border-box;
+    min-height: calc(100svh - 200px);
     padding: 2rem 2rem 0 2rem;
     max-width: 800px;
     margin-bottom: 50px;
@@ -231,8 +233,10 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 350px; /* left col width "#menu" */
         left: 0;
+    }
+    main{
+        padding-left: 350px;
     }
     #menu {
         transform: translateX(0);

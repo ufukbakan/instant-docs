@@ -8,30 +8,13 @@
         };
     }
     const elements = getElements();
-    function toggleClass(element, className) {
-        var classes = element.className.split(/\s+/);
-        var length = classes.length;
-        var i = 0;
 
-        for (; i < length; i++) {
-            if (classes[i] === className) {
-                classes.splice(i, 1);
-                break;
-            }
-        }
-        // The className is not found
-        if (length === classes.length) {
-            classes.push(className);
-        }
-
-        element.className = classes.join(' ');
-    }
     function toggleAll() {
-        var active = 'active';
+        const active = 'active';
 
-        toggleClass(elements.layout, active);
-        toggleClass(elements.menu, active);
-        toggleClass(elements.menuLink, active);
+        elements.layout.classList.toggle(active);
+        elements.menu.classList.toggle(active);
+        elements.menuLink.classList.toggle(active);
     }
     /**
      * @param {MouseEvent} e 
@@ -40,7 +23,7 @@
         if (e.target.id === elements.menuLink.id) {
             toggleAll();
             e.preventDefault();
-        } else if (elements.menu.classList.contains('active')) {
+        } else if (elements.menu.classList.contains('active') && !elements.menu.contains(e.target)) {
             toggleAll();
         }
 
